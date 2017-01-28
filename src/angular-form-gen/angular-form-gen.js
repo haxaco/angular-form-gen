@@ -180,7 +180,7 @@ fg.config(function (fgConfigProvider, FgField) {
       }),
       new FgField('password'),
       new FgField('textarea'),
-      new FgField('datepicker', { value: { startDate: new Date() } })
+      new FgField('datepicker')
     ],
     'Checkbox fields': [
       new FgField('checkbox', { nolabel: true }),

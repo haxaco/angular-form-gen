@@ -340,11 +340,11 @@ angular.module('fg').run(['$templateCache', function($templateCache){
   $templateCache.put('angular-form-gen/edit/palette/categories/categories.ng.html', '<legend ng-click=\"paletteCategoriesMenuOpen = !paletteCategoriesMenuOpen\" ng-class=\"{ \'open\': paletteCategoriesMenuOpen }\">Palette <span class=\"fg-legend-extra fg-edit-palette-categories visible-xs-inline visible-md-inline visible-lg-inline\">- {{ categoryName || \'All field types\' }}</span> <i class=\"caret\"></i><ul class=\"dropdown-menu\"><li ng-repeat=\"(name, category) in categories\" ng-class=\"{ \'active\': categoryName === name }\"><a ng-click=\"setCategory(name, category)\">{{ name }}</a></li><li class=\"divider\"></li><li ng-class=\"{ \'active\': !category }\"><a ng-click=\"setCategory(null)\">All field types</a></li></ul></legend>');
   $templateCache.put('angular-form-gen/edit/canvas/field/properties/properties.ng.html', '<div class=\"fg-field-properties\"><div novalidate=\"\" ng-form=\"fieldPropertiesForm\"><div fg-tabs=\"property.tabs\"><div ng-include=\"renderInfo.propertiesTemplateUrl\"></div><div fg-tabs-pane=\"Debug\" order=\"1000\" auto-active=\"false\"><div data-jsonify=\"field\"></div></div></div></div></div>');
   $templateCache.put('angular-form-gen/edit/canvas/field/properties/options/options.ng.html', '<div ng-if=\"!field.options || field.options.length === 0\" ng-click=\"optionsCtrl.addOption()\" class=\"alert alert-info\"><h2>No options defined</h2><p class=\"lead\">Click here to add a new option definition to this field.</p></div><table ng-if=\"field.options.length > 0\" class=\"table-field-options\"><thead><tr><th></th><th>Value</th><th>Text</th><th><a href=\"\" class=\"btn btn-default btn-xs\" ng-click=\"optionsCtrl.addOption()\" title=\"Add a new option to the list\"><i class=\"fa fa-plus\"></i></a></th><th class=\"table-field-options-padding\"></th></tr></thead><tbody><tr ng-form=\"fieldOptionForm\" ng-repeat=\"option in field.options\" ng-class=\"{ \'error\': fieldOptionForm.$invalid }\"><td ng-if=\"multiple === false\"><input type=\"radio\" name=\"{{ field.name }}selection[]\" value=\"{{ option.value }}\" ng-model=\"field.value\" ng-click=\"optionsCtrl.toggleOption(option.value)\"></td><td ng-if=\"multiple === true\"><input type=\"checkbox\" name=\"{{ field.name }}selection[]\" value=\"{{ option.value }}\" ng-model=\"field.value[option.value]\"></td><td><input type=\"text\" name=\"optionValue\" ng-model=\"option.value\" class=\"form-control\" ng-required=\"field.type != \'selectlist\'\"></td><td><input type=\"text\" ng-model=\"option.text\" class=\"form-control\"></td><td><a href=\"\" class=\"btn btn-default btn-xs\" ng-click=\"optionsCtrl.removeOption($index)\" title=\"Remove this option from the list\"><i class=\"fa fa-trash\"></i></a></td><td></td></tr></tbody></table>');
+  $templateCache.put('angular-form-gen/edit/canvas/field/properties/validation/validation-message.ng.html', '<div ng-form=\"valMsgForm\"><div fg-property-field=\"message\" fg-property-field-label=\"Message\"><input type=\"text\" name=\"message\" title=\"{{ tooltip }}\" placeholder=\"Optional message\" ng-model=\"field.validation.messages[validationType]\" class=\"form-control\"></div></div>');
+  $templateCache.put('angular-form-gen/edit/canvas/field/properties/validation/validation.ng.html', '<div ng-if=\"fields.minlength\" class=\"fg-property-field-validation\"><div fg-property-field=\"minlength\" fg-property-field-label=\"Minimum length\"><input type=\"text\" fg-field-redraw=\"\" fg-input-number=\"\" title=\"The minimum length of characters that should be entered.\" name=\"minlength\" ng-model=\"field.validation.minlength\" class=\"form-control\"></div><div ng-if=\"field.validation.minlength >= 1\"><div fg-edit-validation-message=\"minlength\"></div></div></div><div ng-if=\"fields.maxlength\" class=\"fg-property-field-validation\"><div fg-property-field=\"maxlength\" fg-property-field-label=\"Maximum length\"><input type=\"text\" fg-field-redraw=\"\" fg-input-number=\"\" title=\"The maximum length of characters that should be entered.\" name=\"maxlength\" ng-model=\"field.validation.maxlength\" class=\"form-control\"></div><div ng-if=\"field.validation.maxlength >= 1\"><div fg-edit-validation-message=\"maxlength\"></div></div></div><div ng-if=\"fields.pattern\" class=\"fg-property-field-validation\"><div fg-property-field=\"pattern\" fg-property-field-label=\"Pattern\"><div fg-dropdown-input=\"patternOptions\" name=\"pattern\" title=\"The pattern that should match with the input value.\" fg-parse-pattern=\"\" fg-field-redraw=\"\" ng-model=\"field.validation.pattern\"></div></div><div ng-if=\"field.validation.pattern.length > 0\"><div fg-edit-validation-message=\"pattern\"></div></div></div><div ng-if=\"fields.required\" class=\"fg-property-field-validation\"><div fg-property-field=\"required\"><div class=\"checkbox\"><label title=\"Indicates if a value is required for this field.\"><input type=\"checkbox\" ng-model=\"field.validation.required\">Required</label></div></div><div ng-if=\"field.validation.required\"><div fg-edit-validation-message=\"required\"></div></div></div>');
   $templateCache.put('angular-form-gen/edit/canvas/field/properties/property-field/common.ng.html', '<div ng-if=\"fields.fieldname\"><div fg-property-field=\"fieldName\" fg-property-field-label=\"Name\"><input type=\"text\" class=\"form-control\" name=\"fieldName\" ng-model=\"field.name\" ng-required=\"true\" ng-pattern=\"/^[a-zA-Z]([\\w]+)?$/\" fg-unique-field-name=\"\"></div></div><div ng-if=\"fields.displayname\"><div fg-property-field=\"displayName\" fg-property-field-label=\"Display name\"><input type=\"text\" class=\"form-control\" name=\"displayName\" ng-model=\"field.displayName\"></div></div><div ng-if=\"fields.placeholder\"><div fg-property-field=\"fieldPlaceholder\" fg-property-field-label=\"Placeholder text\"><input type=\"text\" class=\"form-control\" name=\"fieldPlaceholder\" ng-model=\"field.placeholder\"></div></div><div ng-if=\"fields.tooltip\"><div fg-property-field=\"fieldTooltip\" fg-property-field-label=\"Tooltip\"><input type=\"text\" class=\"form-control\" name=\"fieldTooltip\" ng-model=\"field.tooltip\"></div></div>');
   $templateCache.put('angular-form-gen/edit/canvas/field/properties/property-field/field-value.ng.html', '<div ng-if=\"draw\"><div fg-property-field=\"fieldValue\" fg-property-field-label=\"Initial value\"><div ng-transclude=\"\"></div></div></div>');
   $templateCache.put('angular-form-gen/edit/canvas/field/properties/property-field/property-field.ng.html', '<div class=\"form-group fg-property-field\" ng-class=\"{ \'has-error\': fieldPropertiesForm[fieldName].$invalid }\"><label class=\"col-sm-5 col-md-4 control-label\">{{ fieldLabel }}</label><div class=\"col-sm-7 col-md-8\"><div ng-transclude=\"\"></div><div fg-validation-summary=\"{{ fieldName }}\"></div></div></div>');
-  $templateCache.put('angular-form-gen/edit/canvas/field/properties/validation/validation-message.ng.html', '<div ng-form=\"valMsgForm\"><div fg-property-field=\"message\" fg-property-field-label=\"Message\"><input type=\"text\" name=\"message\" title=\"{{ tooltip }}\" placeholder=\"Optional message\" ng-model=\"field.validation.messages[validationType]\" class=\"form-control\"></div></div>');
-  $templateCache.put('angular-form-gen/edit/canvas/field/properties/validation/validation.ng.html', '<div ng-if=\"fields.minlength\" class=\"fg-property-field-validation\"><div fg-property-field=\"minlength\" fg-property-field-label=\"Minimum length\"><input type=\"text\" fg-field-redraw=\"\" fg-input-number=\"\" title=\"The minimum length of characters that should be entered.\" name=\"minlength\" ng-model=\"field.validation.minlength\" class=\"form-control\"></div><div ng-if=\"field.validation.minlength >= 1\"><div fg-edit-validation-message=\"minlength\"></div></div></div><div ng-if=\"fields.maxlength\" class=\"fg-property-field-validation\"><div fg-property-field=\"maxlength\" fg-property-field-label=\"Maximum length\"><input type=\"text\" fg-field-redraw=\"\" fg-input-number=\"\" title=\"The maximum length of characters that should be entered.\" name=\"maxlength\" ng-model=\"field.validation.maxlength\" class=\"form-control\"></div><div ng-if=\"field.validation.maxlength >= 1\"><div fg-edit-validation-message=\"maxlength\"></div></div></div><div ng-if=\"fields.pattern\" class=\"fg-property-field-validation\"><div fg-property-field=\"pattern\" fg-property-field-label=\"Pattern\"><div fg-dropdown-input=\"patternOptions\" name=\"pattern\" title=\"The pattern that should match with the input value.\" fg-parse-pattern=\"\" fg-field-redraw=\"\" ng-model=\"field.validation.pattern\"></div></div><div ng-if=\"field.validation.pattern.length > 0\"><div fg-edit-validation-message=\"pattern\"></div></div></div><div ng-if=\"fields.required\" class=\"fg-property-field-validation\"><div fg-property-field=\"required\"><div class=\"checkbox\"><label title=\"Indicates if a value is required for this field.\"><input type=\"checkbox\" ng-model=\"field.validation.required\">Required</label></div></div><div ng-if=\"field.validation.required\"><div fg-edit-validation-message=\"required\"></div></div></div>');
 }]);
 fg.directive('fgBindExpression', ["$interpolate", function ($interpolate) {
 
@@ -1731,123 +1731,6 @@ fg.directive('fgEditPalette',function () {
     }
   };
 });
-fg.directive('fgCheckboxlist', function() {
-
-  function validateRequired(validation, value, options) {
-
-    var required = validation ? validation.required : false;
-
-    // Set in field-templates/default/checkboxlist.ng.html
-
-    if(required) {
-
-      // Ensures that at least one option is checked
-
-      var x = options.length;
-
-      while(x--) {
-        if(value[options[x].value]) {
-          return true;
-        }
-      }
-
-      return false;
-    }
-
-    return true;
-
-  }
-
-  function selectionCount(value) {
-    var c = 0;
-
-    for(var k in value) {
-      if(value[k]) {
-        c += 1;
-      }
-    }
-
-    return c;
-  }
-
-  return {
-    require: ['^fgField'],
-    link: function($scope, $element, $attrs, $ctrls) {
-
-      var field = $ctrls[0].field();
-
-      var formData = $scope.form.data, schema = field.schema;
-
-      $scope.$watchCollection(function() {
-        return formData[schema.name];
-      }, function(value, oldValue) {
-
-        // Ensure that the field is marked as dirty on changes
-        if(!field.state.$dirty && value !== oldValue) {
-          field.state.$setViewValue(value);
-        }
-
-        if(schema.validation) {
-          var required = validateRequired(schema.validation, value, schema.options);
-          field.state.$setValidity('required', required);
-
-          var minc = schema.validation.minoptions;
-          var maxc = schema.validation.maxoptions;
-
-          var min = true, max = true;
-
-          if(minc || maxc) {
-            var c = selectionCount(value);
-
-            if(minc) {
-              min = c >= schema.validation.minoptions;
-            }
-
-            if(maxc) {
-              max = c <= schema.validation.maxoptions;
-            }
-          }
-
-          field.state.$setValidity('minoptions', min);
-          field.state.$setValidity('maxoptions', max);
-        }
-      });
-    }
-  };
-});
-
-fg.directive('fgSelectlist', ["$timeout", function($timeout) {
-
-  // Angular adds a '? undefined:undefined ?' option dom element if it cannot find a matching model value in the
-  // options list. Somehow this also happens if the value is in the option list. This directive simply removes
-  // the invalid option from the dom.
-
-  // https://github.com/angular/angular.js/issues/1019
-  // http://stackoverflow.com/questions/12654631/why-does-angularjs-include-an-empty-option-in-select
-
-  return {
-    priority: 1000,
-    link: function($scope, $element) {
-
-      // Ensure that the ng-repeat has finished by suspending the remove.
-
-      $timeout(function() {
-
-        var $options = $element.find('option');
-        var i = $options.length;
-
-        while(--i >= 0) {
-          var $option = angular.element($options[i]);
-          if($option.val() == '? undefined:undefined ?') {
-            $option.remove();
-            break;
-          }
-        }
-      }, 0);
-    }
-  }
-}]);
-
 fg.controller('fgFieldController', ["$scope", "fgUtils", function($scope, fgUtils) {
 
   var self = this;
@@ -2132,6 +2015,123 @@ fg.directive('fgSchema', ["fgSchemaLinkFn", function(fgSchemaLinkFn) {
   };
 });
 
+
+fg.directive('fgCheckboxlist', function() {
+
+  function validateRequired(validation, value, options) {
+
+    var required = validation ? validation.required : false;
+
+    // Set in field-templates/default/checkboxlist.ng.html
+
+    if(required) {
+
+      // Ensures that at least one option is checked
+
+      var x = options.length;
+
+      while(x--) {
+        if(value[options[x].value]) {
+          return true;
+        }
+      }
+
+      return false;
+    }
+
+    return true;
+
+  }
+
+  function selectionCount(value) {
+    var c = 0;
+
+    for(var k in value) {
+      if(value[k]) {
+        c += 1;
+      }
+    }
+
+    return c;
+  }
+
+  return {
+    require: ['^fgField'],
+    link: function($scope, $element, $attrs, $ctrls) {
+
+      var field = $ctrls[0].field();
+
+      var formData = $scope.form.data, schema = field.schema;
+
+      $scope.$watchCollection(function() {
+        return formData[schema.name];
+      }, function(value, oldValue) {
+
+        // Ensure that the field is marked as dirty on changes
+        if(!field.state.$dirty && value !== oldValue) {
+          field.state.$setViewValue(value);
+        }
+
+        if(schema.validation) {
+          var required = validateRequired(schema.validation, value, schema.options);
+          field.state.$setValidity('required', required);
+
+          var minc = schema.validation.minoptions;
+          var maxc = schema.validation.maxoptions;
+
+          var min = true, max = true;
+
+          if(minc || maxc) {
+            var c = selectionCount(value);
+
+            if(minc) {
+              min = c >= schema.validation.minoptions;
+            }
+
+            if(maxc) {
+              max = c <= schema.validation.maxoptions;
+            }
+          }
+
+          field.state.$setValidity('minoptions', min);
+          field.state.$setValidity('maxoptions', max);
+        }
+      });
+    }
+  };
+});
+
+fg.directive('fgSelectlist', ["$timeout", function($timeout) {
+
+  // Angular adds a '? undefined:undefined ?' option dom element if it cannot find a matching model value in the
+  // options list. Somehow this also happens if the value is in the option list. This directive simply removes
+  // the invalid option from the dom.
+
+  // https://github.com/angular/angular.js/issues/1019
+  // http://stackoverflow.com/questions/12654631/why-does-angularjs-include-an-empty-option-in-select
+
+  return {
+    priority: 1000,
+    link: function($scope, $element) {
+
+      // Ensure that the ng-repeat has finished by suspending the remove.
+
+      $timeout(function() {
+
+        var $options = $element.find('option');
+        var i = $options.length;
+
+        while(--i >= 0) {
+          var $option = angular.element($options[i]);
+          if($option.val() == '? undefined:undefined ?') {
+            $option.remove();
+            break;
+          }
+        }
+      }, 0);
+    }
+  }
+}]);
 
 fg.directive('fgEditCanvasField', ["$timeout", function ($timeout) {
 
